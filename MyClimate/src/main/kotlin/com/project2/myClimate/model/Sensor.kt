@@ -26,4 +26,5 @@ data class Sensor(var room: String = "",
     override fun toString(): String {
         return this::class.simpleName + "(id = $id , room = $room , house = $house )"
     }
+
 }

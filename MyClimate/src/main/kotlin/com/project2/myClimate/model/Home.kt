@@ -11,7 +11,7 @@ data class Home(var name: String = "",
                 @ManyToOne var owner: User) {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     var id: Long? = null
 

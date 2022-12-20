@@ -26,4 +26,5 @@ data class User(var name: String = "",
     override fun toString(): String {
         return this::class.simpleName + "(id = $id , name = $name , pass = $pass )"
     }
+
 }
