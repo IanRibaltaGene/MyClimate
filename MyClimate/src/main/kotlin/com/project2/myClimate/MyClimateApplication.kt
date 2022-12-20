@@ -1,4 +1,4 @@
-package com.project2.MyClimate
+package com.project2.myClimate
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
