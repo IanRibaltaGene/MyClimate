@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel>
+    <bytecodeTargetLevel target="17">
+      <module name="MyClimate.MyClimate" target="17" />
       <module name="MyClimate.MyClimate.main" target="17" />
+      <module name="MyClimate.MyClimate.main~1" target="17" />
       <module name="MyClimate.MyClimate.test" target="17" />
+      <module name="MyClimate.MyClimate.test~1" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>

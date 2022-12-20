@@ -47,4 +47,10 @@ class UserBusiness: IUserBusiness{
         TODO("Not yet implemented")
     }
 
+    override fun authenticate(username: String, password: String): Boolean {
+        val idUser = userRepository.findByUsername(username)
+        val user = userRepository.findById(idUser?.id!!)
+        return user.isPresent && user.get().password == password
+    }
+
 }
