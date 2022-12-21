@@ -29,13 +29,22 @@ class HomeRestController {
         }
     }
 
-    @GetMapping("/fullSearch/{idHome}/{address}/{description}")
-    fun fullSearch(@PathVariable("idHome")idHome: Long?,
-                   @PathVariable("address")address: String?,
-                   @PathVariable("description")description: String?): ResponseEntity<Optional<Home>>{
+    //@GetMapping(value = arrayOf("/fullSearch/{idHome}","/fullSearch/{address}", "/fullSearch/{description}"))
+
+    @GetMapping("/fullSearch")
+    fun fullSearch(@RequestParam idHome: Long? = null,
+                   @RequestParam address: String? = null,
+                   @RequestParam description: String? = null): ResponseEntity<Optional<Home>>{
         return try {
-            println(idHome)
-            ResponseEntity(homebusiness.searchHomeFull(idHome,address, description), HttpStatus.OK)
+            if(idHome != null){
+                ResponseEntity(homebusiness.searchHomeFullById(idHome), HttpStatus.OK)
+            }else if(address != null){
+                ResponseEntity(homebusiness.searchHomeFullByAdd(address), HttpStatus.OK)
+            }else if(description != null){
+                ResponseEntity(homebusiness.searchHomeFullByDescription(description), HttpStatus.OK)
+            }else{
+                ResponseEntity(HttpStatus.BAD_REQUEST)
+            }
         }catch (e:Exception){
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
         }
@@ -44,9 +53,9 @@ class HomeRestController {
     @PostMapping("")
     fun registerHome(@RequestBody home: Home): ResponseEntity<Any>{
         return try {
-            homebusiness.register(home)
+            val homeRegistered = homebusiness.register(home)
             val responseHeader = HttpHeaders()
-            responseHeader.set("location", Constants.URL_BASE_HOMES + "/" + home.id)
+            responseHeader.set("location", Constants.URL_BASE_HOMES + "/" + homeRegistered.id)
             ResponseEntity(responseHeader, HttpStatus.CREATED)
         }catch (e: BusinessException) {
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -65,7 +74,7 @@ class HomeRestController {
         }
     }
 
-    @DeleteMapping("/{idHome}{idUser}{password}")
+    @DeleteMapping("/{idHome}/{idUser}/{password}")
     fun deleteHome(@PathVariable("idHome") idHome: Long,
                    @PathVariable("idUser") idUser: Long,
                    @PathVariable("password") password: String): ResponseEntity<Any>{

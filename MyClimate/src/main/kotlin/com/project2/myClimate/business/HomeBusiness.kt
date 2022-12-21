@@ -50,7 +50,7 @@ class HomeBusiness: IHomeBusiness {
         if(!opDeleted.isPresent){
             throw NotFoundExceptionBusiness("Home with id $idHome does not exist")
         }
-        if(opDeleted.get().owner.id != idUser && opDeleted.get().owner.password != password){
+        if(opDeleted.get().owner.id != idUser || opDeleted.get().owner.password != password){
             throw UserNotPermission("User $idUser is not the owner of this home")
         }
         try {
@@ -101,20 +101,7 @@ class HomeBusiness: IHomeBusiness {
             throw BusinessException(e.message)
         }
     }
-
-    @Throws(BusinessException::class)
-    override fun searchHomeFull(idHome: Long?, address: String?, description: String?): Optional<Home>{
-        return if(idHome != null){
-            println(idHome)
-            searchHomeFullById(idHome)
-        }else if(address != null){
-            searchHomeFullByAdd(address)
-        }else{
-            searchHomeFullByDescription(description!!)
-        }
-    }
-
-
+    
     override fun searchHomePartial(address: String, description: String): Home {
         TODO("Not yet implemented")
     }

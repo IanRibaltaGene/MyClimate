@@ -19,8 +19,6 @@ interface IHomeBusiness {
 
     fun searchHomeFullByDescription(description: String): Optional<Home>
 
-    fun searchHomeFull(idHome: Long?, address: String?, description: String?): Optional<Home>
-
     fun searchHomePartial(address: String, description: String): Home
 
 }
