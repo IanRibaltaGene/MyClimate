@@ -1,16 +1,16 @@
 package com.project2.myClimate.web
 
 import com.project2.myClimate.business.UserBusiness
+import com.project2.myClimate.exception.BusinessException
+import com.project2.myClimate.exception.NotFoundExceptionBusiness
 import com.project2.myClimate.model.Home
 import com.project2.myClimate.model.User
 import com.project2.myClimate.utils.Constants
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping(Constants.URL_BASE_USERS)
@@ -34,6 +34,51 @@ class UserRestController {
             ResponseEntity(userBusiness.listHomes(idUser),HttpStatus.OK)
         }catch (e:Exception){
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
+        }
+    }
+
+    @GetMapping("/{idUser}")
+    fun load(@PathVariable("id") idUser: Long): ResponseEntity<User>{
+        return try {
+            ResponseEntity(userBusiness.load(idUser), HttpStatus.OK)
+        }catch (e: BusinessException){
+            ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
+        }catch (e: NotFoundExceptionBusiness){
+            ResponseEntity(HttpStatus.NOT_FOUND)
+        }
+    }
+
+    @PostMapping("")
+    fun insert(@RequestBody user: User): ResponseEntity<Any>{
+        return try {
+            val userSaved = userBusiness.save(user)
+            val responseHeader = HttpHeaders()
+            responseHeader.set("location", Constants.URL_BASE_USERS + "/" + userSaved.id)
+            ResponseEntity(HttpStatus.CREATED)
+        }catch (e: BusinessException){
+            ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
+        }
+    }
+
+    @PutMapping("")
+    fun update(@RequestBody user: User): ResponseEntity<Any>{
+        return try {
+            userBusiness.save(user)
+            ResponseEntity(HttpStatus.OK)
+        }catch (e: BusinessException){
+            ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    fun delete(@PathVariable("id") idUser: Long): ResponseEntity<Any>{
+        return try {
+            userBusiness.remove(idUser)
+            ResponseEntity(HttpStatus.OK)
+        }catch (e:BusinessException){
+            ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
+        }catch (e:NotFoundExceptionBusiness){
+            ResponseEntity(HttpStatus.NOT_FOUND)
         }
     }
 
