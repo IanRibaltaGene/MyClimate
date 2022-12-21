@@ -38,7 +38,7 @@ class UserRestController {
     }
 
     @GetMapping("/{idUser}")
-    fun load(@PathVariable("id") idUser: Long): ResponseEntity<User>{
+    fun load(@PathVariable("idUser") idUser: Long): ResponseEntity<User>{
         return try {
             ResponseEntity(userBusiness.load(idUser), HttpStatus.OK)
         }catch (e: BusinessException){
@@ -70,8 +70,8 @@ class UserRestController {
         }
     }
 
-    @DeleteMapping("/{id}")
-    fun delete(@PathVariable("id") idUser: Long): ResponseEntity<Any>{
+    @DeleteMapping("/{idUser}")
+    fun delete(@PathVariable("idUser") idUser: Long): ResponseEntity<Any>{
         return try {
             userBusiness.remove(idUser)
             ResponseEntity(HttpStatus.OK)
