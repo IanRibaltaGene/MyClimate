@@ -1,7 +1,6 @@
 package com.project2.myClimate.business
 
 import com.project2.myClimate.model.Home
-import com.project2.myClimate.model.User
 import java.util.*
 
 interface IHomeBusiness {
@@ -10,15 +9,17 @@ interface IHomeBusiness {
 
     fun register(home: Home): Home
 
-    fun delete(idHome: Long, owner: User)
+    fun delete(idHome: Long, idUser: Long, password: String)
 
-    fun modify(idHome: Long, name: String, address: String, description: String, owner: User): Home
+    fun modify(home: Home): Home
 
     fun searchHomeFullById(idHome: Long): Optional<Home>
 
     fun searchHomeFullByAdd(address: String): Optional<Home>
 
-    fun searchHomeFullByDescription(description: String): Any
+    fun searchHomeFullByDescription(description: String): Optional<Home>
+
+    fun searchHomeFull(idHome: Long?, address: String?, description: String?): Optional<Home>
 
     fun searchHomePartial(address: String, description: String): Home
 

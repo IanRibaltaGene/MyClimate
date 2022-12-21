@@ -28,8 +28,8 @@ class UserRestController {
         }
     }
 
-    @GetMapping("/homes{idUser}")
-    fun listHomes(@PathVariable("idUser") idUser:Long): ResponseEntity<List<Home>>{
+    @GetMapping("/homes/{idUser}")
+    fun listHomes(@PathVariable("idUser") idUser: Long): ResponseEntity<List<Home>>{
         return try {
             ResponseEntity(userBusiness.listHomes(idUser),HttpStatus.OK)
         }catch (e:Exception){
@@ -37,7 +37,7 @@ class UserRestController {
         }
     }
 
-    @GetMapping("/{idUser}")
+    @GetMapping("/user/{idUser}")
     fun load(@PathVariable("idUser") idUser: Long): ResponseEntity<User>{
         return try {
             ResponseEntity(userBusiness.load(idUser), HttpStatus.OK)

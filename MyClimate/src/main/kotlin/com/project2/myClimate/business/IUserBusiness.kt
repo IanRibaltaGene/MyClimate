@@ -10,7 +10,7 @@ interface IUserBusiness {
     fun load(idUser: Long): User
     fun save(user: User): User
     fun remove(idUser: Long)
-    fun authenticate(username: String, password: String): Boolean
+    fun authenticate(user: User): Boolean
     fun findUser(username: String): User
 
 }

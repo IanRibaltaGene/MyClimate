@@ -14,7 +14,7 @@ import java.util.*
 class UserBusiness: IUserBusiness{
 
     @Autowired
-    lateinit var userRepository: UserRepository //val userRepository: UserRepository? = null
+    lateinit var userRepository: UserRepository
     @Autowired
     lateinit var homeRepository: HomeRepository
 
@@ -32,7 +32,7 @@ class UserBusiness: IUserBusiness{
     override fun listHomes(idUser: Long): List<Home> {
         try {
             val user = userRepository.findById(idUser)
-            return homeRepository.findAllByOwner(owner = user.get())
+            return homeRepository.findAllByOwner(owner = user)
         }catch (e:Exception){
             throw BusinessException(e.message)
         }
@@ -82,10 +82,9 @@ class UserBusiness: IUserBusiness{
         }
     }
 
-    override fun authenticate(username: String, password: String): Boolean {
-        val userFind = userRepository.findByUsername(username)
-        val user = userRepository.findById(userFind?.id!!)
-        return user.isPresent && user.get().password == password
+    override fun authenticate(user: User): Boolean {
+        val opUser = userRepository.findById(user.id!!)
+        return opUser.isPresent && opUser.get().password == user.password
     }
 
     override fun findUser(username: String): User {
