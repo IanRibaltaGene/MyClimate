@@ -5,26 +5,11 @@ import jakarta.persistence.*
 @Entity
 @Table(name = "home")
 class Home(var name: String = "",
-           var address: String = "",
+           @Column(unique = true) var address: String = "",
            var description: String = "",
            @ManyToOne var owner: User,
            @Id
            @GeneratedValue(strategy = GenerationType.AUTO)
            @Column(name = "id", nullable = false)
            var id: Long? = null) {
-
-    /*override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other == null || Hibernate.getClass(this) != Hibernate.getClass(other)) return false
-        other as Home
-
-        return id != null && id == other.id
-    }
-
-    override fun hashCode(): Int = javaClass.hashCode()
-
-    @Override
-    override fun toString(): String {
-        return this::class.simpleName + "(id = $id , name = $name , address = $address , description = $description , owner = $owner )"
-    }*/
 }

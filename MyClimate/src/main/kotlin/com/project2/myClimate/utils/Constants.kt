@@ -7,7 +7,7 @@ class Constants {
         private const val URL_BASE = URL_API_BASE + URL_API_VERSION
 
         const val URL_BASE_HOMES = "$URL_BASE/homes"
-        const val URL_BASE_SENSORS = "$URL_BASE/SENSORS"
+        const val URL_BASE_SENSORS = "$URL_BASE/sensors"
         const val URL_BASE_USERS = "$URL_BASE/users"
     }
 }
