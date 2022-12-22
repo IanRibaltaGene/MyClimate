@@ -1,15 +1,17 @@
 package com.project2.myClimate.business
 
-import com.project2.myClimate.model.Home
 import com.project2.myClimate.model.Sensor
+import java.util.*
 
 interface ISensorBusiness {
-    fun list(idHome: Long): List<Sensor>
+    fun list(idHome: Long): Optional<List<Sensor>>
 
-    fun register(idSensor: Long, home: Home, room: String): Sensor
+    fun save(sensor: Sensor): Sensor
 
     fun delete(idSensor: Long)
 
-    fun listInfo(idSensor: Long): Map<String, Any>
+    fun listAllSensors(): MutableList<Sensor>
+
+    fun listInfo(idSensor: Long): Any
 
 }
