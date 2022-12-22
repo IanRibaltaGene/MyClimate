@@ -8,5 +8,5 @@ class User(@Column(nullable = false) var username: String,
                 @Column(nullable = false) var password: String,
                 @Id
                 @GeneratedValue(strategy = GenerationType.IDENTITY)
-                var id: Long? = null) {
+                var id: Long = 0) {
 }

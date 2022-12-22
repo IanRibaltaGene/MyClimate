@@ -28,9 +28,12 @@ class UserBusiness: IUserBusiness{
         }
     }
 
-    @Throws(BusinessException::class)
+    @Throws(BusinessException::class, NotFoundExceptionBusiness::class)
     override fun listHomes(idUser: Long): List<Home> {
         try {
+            if(!userRepository.findById(idUser).isPresent){
+                throw NotFoundExceptionBusiness("User does not exist")
+            }
             val user = userRepository.findById(idUser)
             return homeRepository.findAllByOwner(owner = user)
         }catch (e:Exception){

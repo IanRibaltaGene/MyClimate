@@ -35,6 +35,9 @@ class MyClimateApplication: CommandLineRunner {
 
 		sensorRepository.save(sensorFake1)
 		sensorRepository.save(sensorFake2)
+
+		val userFake2 = User("user2", "user2")
+		userRepository.save(userFake2)
 	}
 
 }

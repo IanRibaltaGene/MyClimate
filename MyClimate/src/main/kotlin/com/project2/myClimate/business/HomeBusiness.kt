@@ -5,6 +5,7 @@ import com.project2.myClimate.exception.BusinessException
 import com.project2.myClimate.exception.NotFoundExceptionBusiness
 import com.project2.myClimate.exception.UserNotPermission
 import com.project2.myClimate.model.Home
+import com.project2.myClimate.model.User
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import java.util.*
@@ -61,10 +62,9 @@ class HomeBusiness: IHomeBusiness {
     }
 
     @Throws(BusinessException::class, UserNotPermission::class)
-    override fun modify(home: Home): Home {
-        val homeToModify = home.id?.let { homeRepository.findById(it) }
-
-        if(!userBusiness.authenticate(home.owner) || home.owner.username != homeToModify?.get()?.owner?.username){
+    override fun modify(home: Home, user: User): Home {
+        val homeToModify = home.id.let { homeRepository.findById(it) }
+        if(!userBusiness.authenticate(user) || user.username != homeToModify.get().owner.username){
             throw UserNotPermission("User ${home.owner} is not the owner of this home")
         }
         try {

@@ -32,8 +32,10 @@ class UserRestController {
     fun listHomes(@PathVariable("idUser") idUser: Long): ResponseEntity<List<Home>>{
         return try {
             ResponseEntity(userBusiness.listHomes(idUser),HttpStatus.OK)
-        }catch (e:Exception){
+        }catch (e:BusinessException){
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
+        }catch (e:NotFoundExceptionBusiness){
+            ResponseEntity(HttpStatus.NOT_FOUND)
         }
     }
 

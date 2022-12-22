@@ -6,6 +6,7 @@ import com.project2.myClimate.exception.NotFoundExceptionBusiness
 import com.project2.myClimate.exception.UserNotPermission
 import com.project2.myClimate.model.Home
 import com.project2.myClimate.utils.Constants
+import com.project2.myClimate.utils.RequestWrapper
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
@@ -28,8 +29,6 @@ class HomeRestController {
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
         }
     }
-
-    //@GetMapping(value = arrayOf("/fullSearch/{idHome}","/fullSearch/{address}", "/fullSearch/{description}"))
 
     @GetMapping("/fullSearch")
     fun fullSearch(@RequestParam idHome: Long? = null,
@@ -63,9 +62,9 @@ class HomeRestController {
     }
 
     @PutMapping("")
-    fun updateHome(@RequestBody home: Home): ResponseEntity<Any>{
+    fun updateHome(@RequestBody requestWrapper: RequestWrapper): ResponseEntity<Any>{
         return try {
-            homebusiness.modify(home)
+            homebusiness.modify(requestWrapper.home, requestWrapper.user)
             ResponseEntity(HttpStatus.OK)
         }catch (e: BusinessException){
             ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -74,11 +73,12 @@ class HomeRestController {
         }
     }
 
-    @DeleteMapping("/{idHome}/{idUser}/{password}")
+    @DeleteMapping("/delete/{idHome}/{idUser}/{password}")
     fun deleteHome(@PathVariable("idHome") idHome: Long,
                    @PathVariable("idUser") idUser: Long,
                    @PathVariable("password") password: String): ResponseEntity<Any>{
         return try {
+            println(idHome)
             homebusiness.delete(idHome, idUser, password)
             ResponseEntity(HttpStatus.OK)
         }catch (e:BusinessException){

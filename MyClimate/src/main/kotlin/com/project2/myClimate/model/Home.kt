@@ -11,5 +11,5 @@ class Home(var name: String = "",
            @Id
            @GeneratedValue(strategy = GenerationType.AUTO)
            @Column(name = "id", nullable = false)
-           var id: Long? = null) {
+           var id: Long = 0) {
 }
