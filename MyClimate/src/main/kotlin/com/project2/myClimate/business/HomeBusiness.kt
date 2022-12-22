@@ -64,7 +64,7 @@ class HomeBusiness: IHomeBusiness {
     override fun modify(home: Home): Home {
         val homeToModify = home.id?.let { homeRepository.findById(it) }
 
-        if(!userBusiness.authenticate(home.owner) && home.owner != homeToModify?.get()?.owner){
+        if(!userBusiness.authenticate(home.owner) || home.owner.username != homeToModify?.get()?.owner?.username){
             throw UserNotPermission("User ${home.owner} is not the owner of this home")
         }
         try {
@@ -101,7 +101,7 @@ class HomeBusiness: IHomeBusiness {
             throw BusinessException(e.message)
         }
     }
-    
+
     override fun searchHomePartial(address: String, description: String): Home {
         TODO("Not yet implemented")
     }
