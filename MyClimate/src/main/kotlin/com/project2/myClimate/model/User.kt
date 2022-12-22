@@ -7,6 +7,7 @@ import jakarta.persistence.*
 class User(@Column(nullable = false) var username: String,
                 @Column(nullable = false) var password: String,
                 @Id
-                @GeneratedValue(strategy = GenerationType.IDENTITY)
-                var id: Long = 0) {
+                @GeneratedValue(strategy = GenerationType.AUTO)
+           @Column(name = "id", nullable = false)
+           var id: Long = 0) {
 }
