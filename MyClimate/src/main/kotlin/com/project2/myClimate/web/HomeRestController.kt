@@ -78,7 +78,6 @@ class HomeRestController {
                    @PathVariable("idUser") idUser: Long,
                    @PathVariable("password") password: String): ResponseEntity<Any>{
         return try {
-            println(idHome)
             homebusiness.delete(idHome, idUser, password)
             ResponseEntity(HttpStatus.OK)
         }catch (e:BusinessException){
