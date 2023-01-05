@@ -20,9 +20,9 @@ class MyClimateApplication: CommandLineRunner {
 	lateinit var sensorRepository: SensorRepository
 
 	override fun run(vararg args: String?) {
-		val userFake = User("user", "user")
-
+		val userFake = User("user1", "user1")
 		userRepository.save(userFake)
+
 	}
 
 }

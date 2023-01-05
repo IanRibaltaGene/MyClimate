@@ -41,7 +41,7 @@ class SensorRestController {
     }
 
     @PostMapping("")
-    fun registerHome(@RequestBody sensor: Sensor): ResponseEntity<Any>{
+    fun registerSensor(@RequestBody sensor: Sensor): ResponseEntity<Any>{
         return try {
             val sensorRegistered = sensorBusiness.save(sensor)
             val responseHeader = HttpHeaders()
@@ -53,7 +53,7 @@ class SensorRestController {
     }
 
     @PutMapping("")
-    fun updateHome(@RequestBody sensor: Sensor): ResponseEntity<Any>{
+    fun updateSensor(@RequestBody sensor: Sensor): ResponseEntity<Any>{
         return try {
             sensorBusiness.save(sensor)
             ResponseEntity(HttpStatus.OK)
